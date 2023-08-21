@@ -19,7 +19,7 @@
                         <ol class="breadcrumb bg-transparent justify-content-center">
                             <li class="breadcrumb-item"><a href="#" class="text-white-50"><i
                                         class="mdi mdi-home-outline"></i></a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Blog Details</li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">History</li>
                         </ol>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-												<p>Kampus 2</p>
+                                                <p>Kampus 2</p>
                                                 <iframe
                                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.17419566048326!2d110.95734161553573!3d-7.598131241984514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a2035ba4f059b%3A0xf08b7714bfa2d94e!2sUMUKA%20kampus%202!5e0!3m2!1sen!2sid!4v1692612725855!5m2!1sen!2sid"
                                                     width="600" height="450" style="border:0;" allowfullscreen=""

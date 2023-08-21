@@ -88,8 +88,8 @@
             </div>
 
             <ul class="menu">
-                <li>
-                    <b><a href="#">BERANDA</a></b>
+                <li class="{{ Route::is('home') ? 'active' : '' }}">
+                    <b><a href="{{ route('home') }}">BERANDA</a></b>
                 </li>
                 <li class="dropdown">
                     <b><a href="#">TENTANG</a></b>
@@ -150,7 +150,8 @@
                                 <li> <i class="fa fa-phone"></i> <span> (0271) 6498851 </span><br><span>(0271) 4993819
                                     </span></li>
                                 <li> <i class="fa fa-envelope"></i>
-                                    <span>humas@umuka.ac.id</span><br><span>admin@umuka.ac.id</span></li>
+                                    <span>humas@umuka.ac.id</span><br><span>admin@umuka.ac.id</span>
+                                </li>
                             </ul>
                         </div>
                     </div>

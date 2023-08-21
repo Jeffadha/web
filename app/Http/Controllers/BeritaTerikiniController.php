@@ -46,7 +46,7 @@ class BeritaTerikiniController extends Controller
             })
             ->addColumn('image', function ($data) {
                 if (!empty($data->gambar)) {
-                    $url = URL::asset('/uploadfile/' . $data->gambar);
+                    $url = URL::asset('/uploadfile_news/' . $data->gambar);
                 } else {
                     $url = URL::asset('images/no-image.png');
                 }
