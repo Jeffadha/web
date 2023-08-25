@@ -94,11 +94,12 @@
                 <li class="dropdown">
                     <b><a href="#">TENTANG</a></b>
                     <ul class="dropdown-menu">
-                        <li class="{{ Route::is('history_show') ? 'active' : '' }}"><a
-                                href="{{ route('history_show') }}">Sejarah</a></li>
-                        <li><a href="#">Visi, Misi dan Tujuan</a></li>
-                        <li><a href="#">Keunggulan</a></li>
-                        <li><a href="#">Struktur Organisasi</a></li>
+                        <li class="{{ Route::is('profil_show') ? 'active' : '' }}"><a
+                                href="{{ route('profil_show') }}">Profil</a></li>
+                        <li class="{{ Route::is('campus_show') ? 'active' : '' }}"><a
+                                href="{{ route('campus_show') }}">Kampus & Lokasi</a></li>
+                        <li><a href="#">Struktural</a></li>
+                        <li><a href="#">Akreditasi</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -231,6 +232,10 @@
     <!-- Corenav Master JavaScript -->
     <script src="{{ URL::asset('template/corenav-master/coreNavigation-1.1.3.js') }}"></script>
     <script src="{{ URL::asset('template/js/nav.js') }}"></script>
+    <script src="{{ URL::asset('assets/vendor_components/Magnific-Popup-master/dist/jquery.magnific-popup.min.js') }}">
+    </script>
+    <script src="{{ URL::asset('assets/vendor_components/Magnific-Popup-master/dist/jquery.magnific-popup-init.js') }}">
+    </script>
     <script src="{{ URL::asset('assets/vendor_components/OwlCarousel2/dist/owl.carousel.js') }}"></script>
     <script src="{{ URL::asset('assets/vendor_components/bootstrap-select/dist/js/bootstrap-select.js') }}"></script>
     <script src="{{ URL::asset('assets/vendor_components/jquery-toast-plugin-master/src/jquery.toast.js') }}"></script>

@@ -14,9 +14,14 @@ class FrontendController extends Controller
     }
 
     //
-    public function history_show()
+    public function profil_show()
     {
-        return view('frontend.history_page');
+        return view('frontend.profil_page');
+    }
+
+    public function campus_show()
+    {
+        return view('frontend.campus_page');
     }
 
 

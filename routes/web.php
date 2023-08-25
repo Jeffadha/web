@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', 'FrontendController@home')->name('home');
-Route::get('/history', 'FrontendController@history_show')->name('history_show');
+Route::get('/profil', 'FrontendController@profil_show')->name('profil_show');
+Route::get('/campus', 'FrontendController@campus_show')->name('campus_show');
 Route::get('/login', 'LoginController@form_login')->name('form_login');
 Route::post('/login-action', 'LoginController@login')->name('login_action');
 Route::get('/logout', 'LoginController@logout')->name('logout');

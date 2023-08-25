@@ -34522,10 +34522,10 @@ button#gdpr-cookie-advanced {
 }
 
 /*Custom vertical tab*/
-.customvtab .tabs-vertical li .nav-link:hover,
-.customvtab .tabs-vertical li .nav-link:active,
-.customvtab .tabs-vertical li .nav-link:focus,
-.customvtab .tabs-vertical li .nav-link.active {
+/* .customvtab .tabs-vertical li .nav-link:hover, */
+/* .customvtab .tabs-vertical li .nav-link:active, */
+/* .customvtab .tabs-vertical li .nav-link:focus, */
+.customvtab .tabs-vertical li {
     background: transparent !important;
     border: 0px;
     margin-right: -1px;
