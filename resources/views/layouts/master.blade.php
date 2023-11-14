@@ -98,11 +98,27 @@
                                 href="{{ route('profil_show') }}">Profil</a></li>
                         <li class="{{ Route::is('campus_show') ? 'active' : '' }}"><a
                                 href="{{ route('campus_show') }}">Kampus & Lokasi</a></li>
-                        <li><a href="#">Struktural</a></li>
-                        <li><a href="#">Akreditasi</a></li>
+                        <li class="{{ Route::is('struktur_show') ? 'active' : '' }}"><a
+                                href="{{ route('struktur_show') }}">Struktural</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
+                    <b><a href="#">Belajar di UMUKA</a></b>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Beasiswa</a></li>
+                        <li><a href="#">Sarjana</a></li>
+                        <li><a href="#">Diploma</a></li>
+                        <li><a href="#">Kampus Merdeka</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <b><a href="#">Kehidupan Kampus</a></b>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Fasilitas</a></li>
+                        <li><a href="#">Kegiatan Mahasiswa</a></li>
+                    </ul>
+                </li>
+                {{-- <li class="dropdown">
                     <b><a href="#">AKADEMIK</a></b>
                     <ul class="dropdown-menu">
                         <li class="dropdown">
@@ -111,6 +127,7 @@
                                 <li><a href="#">Program Studi S1 Informatika</a></li>
                                 <li><a href="#">Program Studi S1 Teknik Komputer</a></li>
                                 <li><a href="#">Program Studi S1 Fisioterapi</a></li>
+                                <li><a href="#">Program Studi S1 Peternakan</a></li>
                                 <li><a href="#">Program Studi D3 Porduksi Ternak</a></li>
                             </ul>
                         </li>
@@ -126,7 +143,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li>
                     <b><a href="https://pmb.umuka.ac.id/">ADMISI</a></b>
@@ -160,9 +177,13 @@
                         <div class="widget widget_gallery clearfix">
                             <h4 class="footer-title">Our Gallery</h4>
                             <hr class="bg-primary mb-10 mt-0 d-inline-block mx-auto w-60">
-                            <ul class="list-unstyled">
-                                <li><img src="{{ URL::asset('images/gallery/thumb/1.jpg') }}" alt=""></li>
-                                <li><img src="{{ URL::asset('images/gallery/thumb/2.jpg') }}" alt=""></li>
+                            <ul class="list-unstyled" id="data_gambar">
+                                {{-- @foreach ($gallery as $gal)
+                                    
+                                
+                                <li><img src="{{ URL::asset('/uploadfile_image/' . $gal->gambar) }}" alt=""></li>
+                                @endforeach --}}
+                                {{-- <li><img src="{{ URL::asset('images/gallery/thumb/2.jpg') }}" alt=""></li>
                                 <li><img src="{{ URL::asset('images/gallery/thumb/3.jpg') }}" alt=""></li>
                                 <li><img src="{{ URL::asset('images/gallery/thumb/4.jpg') }}" alt=""></li>
                                 <li><img src="{{ URL::asset('images/gallery/thumb/5.jpg') }}" alt=""></li>
@@ -172,7 +193,7 @@
                                 <li><img src="{{ URL::asset('images/gallery/thumb/9.jpg') }}" alt=""></li>
                                 <li><img src="{{ URL::asset('images/gallery/thumb/10.jpg') }}" alt=""></li>
                                 <li><img src="{{ URL::asset('images/gallery/thumb/11.jpg') }}" alt=""></li>
-                                <li><img src="{{ URL::asset('images/gallery/thumb/12.jpg') }}" alt=""></li>
+                                <li><img src="{{ URL::asset('images/gallery/thumb/12.jpg') }}" alt=""></li> --}}
                             </ul>
                         </div>
                     </div>
@@ -255,6 +276,28 @@
                 stack: 6
             });
         }
+        function data_gambar() {
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('gambar.data') }}",
+                    success: function(result) {
+                        var jml = result.length;
+                        var s = '';
+                        
+                        for (i = 0; i < jml; i++) {
+                            img = result[i].gambar;
+                            //judul = judul.replace(/ /g, "+");
+                            
+                            s = s + '<li><img src="{{ URL::asset('uploadfile_image') }}/' + img + '" alt="' + img + '"></li>';
+                        }
+                        // console.log(result);
+                        $('#data_gambar').html(s);
+
+                    }
+                })
+            }
+
+            data_gambar();
     </script>
 
     @yield('page-script')

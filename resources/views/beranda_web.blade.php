@@ -240,14 +240,24 @@
                     <hr class="w-100 bg-primary">
                 </div>
             </div>
-            <div class="row mt-30">
+            <div class="row mt-30" id="web_pengumuman">
+                {{-- @foreach ($pengumuman as $p)
+                    
+                
                 <div class="col-lg-3 col-md-6 col-12">
                     <div class="card">
                         <a href="#">
-                            <img class="card-img-top" src="{{ URL::asset('images/front-end-img/courses/1.jpg') }}"
-                                alt="Card image cap">
+                            <img class="card-img-top" src="{{URL::asset('/uploadfile_announcement/' . $p->gambar)}}" alt="Card image cap">
                         </a>
-                        <div class="card-body">
+                      <div class="card-body">
+                        <h4 class="card-title">{{ $p->judul }}</h4>
+                        <p class="card-text">{{ strip_tags($p->content) }}</p>
+                        <a href="#" class="btn btn-primary btn-outline btn-sm">Know More</a>
+                      </div>
+                    </div>
+                </div>@endforeach --}}
+                    
+                        {{-- <div class="card-body">
                             <h4 class="card-title">Data</h4>
                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
                                 additional content.</p>
@@ -267,35 +277,7 @@
                                 additional content.</p>
                             <a href="#" class="btn btn-primary btn-outline btn-sm">Know More</a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <div class="card">
-                        <a href="#">
-                            <img class="card-img-top" src="{{ URL::asset('images/front-end-img/courses/3.jpg') }}"
-                                alt="Card image cap">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">Technology</h4>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content.</p>
-                            <a href="#" class="btn btn-primary btn-outline btn-sm">Know More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <div class="card">
-                        <a href="#">
-                            <img class="card-img-top" src="{{ URL::asset('images/front-end-img/courses/4.jpg') }}"
-                                alt="Card image cap">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">Digital Marketing</h4>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content.</p>
-                            <a href="#" class="btn btn-primary btn-outline btn-sm">Know More</a>
-                        </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-12 text-center">
                     <a href="#" class="btn btn-primary mx-auto">View All Free Courses</a>
@@ -519,6 +501,47 @@
 
             web_beritaterkini();
 
+            function web_pengumuman() {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('pengumuman.web') }}",
+                    success: function(result) {
+                        var jml = result.length;
+                        var s = '';
+
+                        for (i = 0; i < jml; i++) {
+                            url_detail =
+                                '{{ route('detail.announ', ['title' => ':title']) }}';
+                            img = result[i].gambar;
+                            titlesubtr = subStr(result[i].judul, 25);
+                            judul = result[i].judul;
+                            //judul = judul.replace(/ /g, "+");
+
+                            url_detail = url_detail.replace(':title', judul);
+
+                            s = s + '<div class="col-lg-3 col-md-6 col-12">'+
+                    '<div class="card">'+
+                        '<a href="#">'+
+                                '<a href="#" ><img class="card-img-top" style="object-fit:cover; object-position: center; width: 100%; max-height: 180px; margin-bottom: 1rem;" src="{{ URL::asset('uploadfile_announcement') }}/' +
+                                img + '" alt="' + img + '"></a>'+
+                      '<div class="card-body">'+
+                        '<h4 class="card-title">'+titlesubtr +'</h4>'+
+                        '<a href="' + url_detail +'" class="btn btn-primary btn-outline btn-sm">Know More</a>'+
+                      '</div>'+
+                    '</div>'+
+                    '</div>';
+                        }
+                        // console.log(result);
+                        $('#web_pengumuman').html(s);
+
+                    }
+                })
+            }
+
+            web_pengumuman();
+
+        
+            
 
         });
     </script>

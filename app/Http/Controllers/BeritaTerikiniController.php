@@ -39,7 +39,7 @@ class BeritaTerikiniController extends Controller
         return Datatables::of($data_beritaterkini)
             ->addIndexColumn()
             ->addColumn('aksi', function ($data) {
-                return '<a href="javascript:void(0)" class="btn btn-xs btn-info" data-id="' . $data->id_berita . '" title="Detail Berita"><i class="fa fa-info-circle" aria-hidden="true"></i></a> <a href="' . route('berita_terkini_update', $data->id_berita) . '" class="btn btn-xs btn-primary" title="Edit Berita"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> <a href="javascript:void(0)" class="btn btn-xs btn-danger" data-id="' . $data->id_berita . '" title="Hapus Berita"><i class="fa fa-trash"></i></a>';
+                return '<a href="javascript:void(0)" class="btn btn-xs btn-info" data-id="' . $data->id_berita . '" title="Detail Berita"><i class="fa fa-info-circle" aria-hidden="true"></i></a> <a href="' . route('berita_terkini_update', $data->id_berita) . '" class="btn btn-xs btn-primary" title="Edit Berita"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>  <a href="' . route('beritaterkini.delete', $data->id_berita) . '" class="btn btn-xs btn-danger" data-id="' . $data->id_berita . '" title="Hapus Berita"><i class="fa fa-trash"></i></a>';
 
                 // '<a href="javascript:void(0)" class="btn btn-xs btn-primary" id="bt_edit" data-show="' .  URL::asset("uploadfile/".$data->gambar)  . '" data-isi="' . $data->content . '" title="Edit Berita"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>'
 
@@ -120,7 +120,6 @@ class BeritaTerikiniController extends Controller
                 if (File::exists($path)) {
                     File::delete($path);
                 }
-
                 $file   =   $request->file('gambar');
                 $name = date("YmdHis") . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('uploadfile_news'), $name);
@@ -184,5 +183,11 @@ class BeritaTerikiniController extends Controller
             );
         }
         return response()->json(['data' => $select_categoryArray]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $request->delete();
+        return response()->json(['success' => 'Artikel berhasil dihapus !']);
     }
 }

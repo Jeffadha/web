@@ -24,8 +24,8 @@
                 <span>Berita Terkini</span>
             </a>
         </li>
-        <li>
-            <a href="#">
+        <li class="{{ Route::is('pengumuman_page') ? 'active' : '' }}">
+            <a href="{{ route('pengumuman_page') }}">
                 <i class="fa fa-calendar" data-bs-toggle="tooltip" title="Post Event">
                     <span class="path1"></span><span class="path2"></span>
                 </i>
@@ -33,6 +33,12 @@
             </a>
         </li>
     </ul>
+</li>
+<li class="{{ Route::is('image_page') ? 'active' : '' }}">
+    <a href="{{ route('image_page') }}">
+        <i class="fa fa-th-large"><span class="path1"></span><span class="path2"></span></i>
+        <span>Image</span>
+    </a>
 </li>
 <li class="#">
     <a href="#">

@@ -40,10 +40,7 @@
                                             role="tab" aria-expanded="false"><span class="hidden-sm-up"><i
                                                     class="ion-person"></i></span> <span class="hidden-xs-down">Visi, Misi
                                                 dan Tujuan</span></a> </li>
-                                    <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#tabtiga"
-                                            role="tab" aria-expanded="false"><span class="hidden-sm-up"><i
-                                                    class="ion-email"></i></span> <span
-                                                class="hidden-xs-down">Akreditasi</span></a> </li>
+
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
@@ -201,11 +198,11 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="tabtiga" role="tabpanel" aria-expanded="false">
-                                        <div class="row justify-content-center">
-                                            <div class="col-md-12">
+                                    {{-- <div class="tab-pane" id="tabtiga" role="tabpanel" aria-expanded="false">
+                                        <div class="box">
+                                            <div class="box-body">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered">
+                                                    <table class="table table-bordered" width="100%">
                                                         <thead>
                                                             <tr>
                                                                 <th>Program Studi</th>
@@ -258,9 +255,10 @@
                                                     </table>
                                                 </div>
                                             </div>
-
                                         </div>
-                                    </div>
+
+                                    </div> --}}
+
                                 </div>
                             </div>
                         </div>
