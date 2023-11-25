@@ -40,7 +40,7 @@
                         <!-- /.form-group -->
                         <div class="form-group">
                             <label for="formFiles" class="form-label">File PDF</label>
-                            <input class="form-control" type="file" accept="image/*" id="formFiles" name="gambar">
+                            <input class="form-control" type="file" accept="pdf/*" id="formFiles" name="content">
                         </div>
                         <div class="form-group">
                             <label for="formFile" class="form-label">File Gambar</label>
@@ -72,42 +72,9 @@
             });
 
 
-            //select category
-            $('.selectkategori').select2({
-                allowClear: true,
-                placeholder: 'Select Category',
-                ajax: {
-                    dataType: 'json',
-                    url: "{{ route('select.category') }}",
-                    //delay: 100,
-                    data: function(params) {
-                        return {
-                            search: params.term
-                        }
-                    },
-                    processResults: function(data) {
-                        var data_array = [];
-                        data.data.forEach(function(value, key) {
-                            data_array.push({
-                                id: value.id,
-                                text: value.text
-                            })
-                        });
-
-                        return {
-                            results: data_array
-                        }
-                    }
-                }
-            }).on('selectkategori:select', function(evt) {
-                $(".selectkategori option:selected").val();
-            });
-
-
             $('#btSave').on('click', function(event) {
                 event.preventDefault();
                 // document.querySelector("[name=content").value = instance.getData();
-                CKEDITOR.instances['editor1'].updateElement();
                 var form_data = new FormData(document.getElementById("form_add"));
                 
                 $.ajax({

@@ -34,6 +34,12 @@
         </li>
     </ul>
 </li>
+<li class="{{ Route::is('prodi_page') ? 'active' : '' }}">
+    <a href="{{ route('prodi_page') }}">
+        <i class="fa fa-book"><span class="path1"></span><span class="path2"></span></i>
+        <span>Prodi</span>
+    </a>
+</li>
 <li class="{{ Route::is('image_page') ? 'active' : '' }}">
     <a href="{{ route('image_page') }}">
         <i class="fa fa-th-large"><span class="path1"></span><span class="path2"></span></i>
@@ -50,6 +56,12 @@
     <a href="#">
         <i class="fa fa-tags"><span class="path1"></span><span class="path2"></span></i>
         <span>Tags</span>
+    </a>
+</li>
+<li class="{{ Route::is('pmb_page') ? 'active' : '' }}">
+    <a href="{{ route('pmb_page') }}">
+        <i class="fa fa-address-card"><span class="path1"></span><span class="path2"></span></i>
+        <span>PMB</span>
     </a>
 </li>
 <li class="treeview">

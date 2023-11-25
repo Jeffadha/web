@@ -13,10 +13,10 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="text-center">						
-						<h2 class="page-title text-white">Blog List</h2>
+						<h2 class="page-title text-white">Daftar Pengumuman</h2>
 						<ol class="breadcrumb bg-transparent justify-content-center">
 							<li class="breadcrumb-item"><a href="#" class="text-white-50"><i class="mdi mdi-home-outline"></i></a></li>
-							<li class="breadcrumb-item text-white active" aria-current="page">Blog List</li>
+							<li class="breadcrumb-item text-white active" aria-current="page">Daftar Pengumuman</li>
 						</ol>
 					</div>
 				</div>
@@ -28,7 +28,7 @@
 	<section class="py-50">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-lg-9 col-12" id="list_beritaterkini">
+				<div class="col-lg-9 col-12" id="list_pengumuman">
 					{{-- <div class="box">
 					  <div class="row g-0">
 						<div class="col-md-4 col-12 bg-img h-md-auto h-250" style="background-image: url(../images/front-end-img/courses/12f.jpg)"></div>
@@ -101,44 +101,36 @@
 
     //     detail_post();
 
-        function list_beritaterkini() {
+        function list_pengumuman() {
                 $.ajax({
                     type: 'GET',
-                    url: "{{ route('beritaterkini.list') }}",
+                    url: "{{ route('pengumuman.list') }}",
                     success: function(result) {
                         var jml = result.length;
                         var s = '';
 
                         for (i = 0; i < jml; i++) {
-                            url_detail =
-                                '{{ route('detail.page', ['urlext' => ':url', 'id' => ':id', 'title' => ':title']) }}';
+							url_detail =
+                                '{{ route('detail.announ', ['id' => ':id']) }}';
                             img = result[i].gambar;
                             titlesubtr = subStr(result[i].judul, 25);
-							// descsubtr = subStr(result[i].content, 250);
-                            id_berita = result[i].id_berita;
-                            url_departemen = result[i].url_departemen;
-							nama_departemen = result[i].nama_departemen;
                             judul = result[i].judul;
-                            slug = result[i].slug;
+                            id_pengumuman = result[i].id_pengumuman;
                             //judul = judul.replace(/ /g, "+");
 
-                            url_detail = url_detail.replace(':url', url_departemen).replace(':id',
-                                id_berita).replace(':title', slug);
+                            url_detail = url_detail.replace(':id', id_pengumuman);
 
                             s = s + '<div class="box">'+
 					  '<div class="row g-0">'+
-						'<div class="col-md-4 col-12 bg-img h-md-auto h-250" style="background-image: url({{ URL::asset('uploadfile_news') }}/'+ img + ')">'+'</div>'+
+						'<div class="col-md-4 col-12 bg-img h-md-auto h-250" style="background-image: url({{ URL::asset('uploadfile_announcement') }}/'+ img + ')">'+'</div>'+
 						'<div class="col-md-8 col-12">'+
 						  '<div class="box-body">'+
 							'<h4><a href="' + url_detail +'">'+ titlesubtr +'</a>'+'</h4>'+
-							'<div class="d-flex mb-10">' + '<div class="me-10">'+
-									'<i class="fa fa-user me-5">'+'</i>'+ nama_departemen + 
-									'</div>' +
+							'<div class="d-flex mb-10">' +
 							  	'<div>' +
 									'<i class="fa fa-calendar me-5">' +'</i>' + result[i].created_at + 
 								'</div>'+
 							'</div>'+
-							// + '<p>'+ descsubtr +'</p>' +
 
 							'<div class="flexbox align-items-center mt-3">'+
 							  '<a class="btn btn-sm btn-primary" href="'+ url_detail +'">Read more</a>' +
@@ -149,13 +141,13 @@
 					'</div>';
                         }
                         // console.log(result);
-                        $('#list_beritaterkini').html(s);
+                        $('#list_pengumuman').html(s);
 
                     }
                 })
             }
 
-            list_beritaterkini();
+            list_pengumuman();
 
             function subStr(text, count) {
             return text.slice(0, count) + (text.length > count ? "..." : "");

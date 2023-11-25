@@ -33,16 +33,16 @@
                     <div class="box-body">
                         @csrf
                         <div class="form-group">
+                            <label>Author</label>
+                            <input class="form-control" type="text" name="author" placeholder="Author">
+                        </div>
+
+                        <div class="form-group">
                             <label>Judul Berita</label>
                             <input class="form-control" type="text" name="judul" placeholder="Judul Berita">
                         </div>
 
                         <!-- /.form-group -->
-                        <div class="form-group">
-                            <label>Kategori</label>
-                            <select class="form-control selectkategori" style="width: 100%;" name="category_id"
-                                id="select_kategori"></select>
-                        </div>
                         <div class="form-group">
                             <label>Isi Berita</label>
                             <textarea id="editor1" name="content" rows="10" cols="80">
@@ -83,42 +83,10 @@
                 }
             });
 
-
-            //select category
-            $('.selectkategori').select2({
-                allowClear: true,
-                placeholder: 'Select Category',
-                ajax: {
-                    dataType: 'json',
-                    url: "{{ route('select.category') }}",
-                    //delay: 100,
-                    data: function(params) {
-                        return {
-                            search: params.term
-                        }
-                    },
-                    processResults: function(data) {
-                        var data_array = [];
-                        data.data.forEach(function(value, key) {
-                            data_array.push({
-                                id: value.id,
-                                text: value.text
-                            })
-                        });
-
-                        return {
-                            results: data_array
-                        }
-                    }
-                }
-            }).on('selectkategori:select', function(evt) {
-                $(".selectkategori option:selected").val();
-            });
-
-
             $('#btSave').on('click', function(event) {
                 event.preventDefault();
                 // document.querySelector("[name=content").value = instance.getData();
+                
                 CKEDITOR.instances['editor1'].updateElement();
                 var form_data = new FormData(document.getElementById("form_add"));
                 $.ajax({

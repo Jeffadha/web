@@ -80,9 +80,17 @@ class GalleryController extends Controller
     //     $select_category = DB::connection('mysql')->select('SELECT * FROM category');
     //     return $select_category;
     // }
-    public function destroy(Request $request)
+    public function delete($id)
     {
-        $request->delete();
-        return response()->json(['success' => 'Artikel berhasil dihapus !']);
+        $data = collect(DB::connection('mysql')->select('SELECT gambar FROM gallery WHERE id_gallery =' . $id));
+        $data = $data[0]->gambar;
+        $path = public_path('uploadfile_gallery/' . $data);
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+
+        DB::connection('mysql')->table('gallery')->where('id_gallery', $id)->delete();
+        // return response()->json(['success' => 'berita berhasil dihapus !'])->header('Location', 'http://localhost:8000/admin/berita');
+        return redirect('/gallery')->with('success', 'Gambar Berhasil Dihapus');
     }
 }

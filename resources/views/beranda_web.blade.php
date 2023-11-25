@@ -42,7 +42,7 @@
             <div class="row mt-30">
                 <div class="col-12">
                     <div class="px-15 pt-15">
-                        <div class="row" id="web_beritaterkini">
+                        <div class="row justify-content-center align-items-center" id="web_beritaterkini">
 
                             {{-- <div class="col-lg-3 col-md-6 col-12">
                               <div class="box">
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="col-12 text-center">
-                    <a href="#" class="btn btn-primary mx-auto"> Lainnya <i class="fa fa-arrow-circle-o-right"
+                    <a href="{{ route('beritaterkini.listpage') }}" class="btn btn-primary mx-auto"> Lainnya <i class="fa fa-arrow-circle-o-right"
                             aria-hidden="true"></i></a>
                 </div>
             </div>
@@ -120,15 +120,15 @@
         </div>
     </section>
 
-    <section class="pt-xl-100 pb-50" data-aos="fade-up">
-        <div class="container">
+	<section class="pt-xl-100 pb-50" data-aos="fade-up">
+        <div class="container mt-2">
             <div class="row justify-content-center">
                 <div class="col-xl-10 col-12">
                     <div class="box box-body p-xl-50 p-30">
                         <div class="row align-items-center">
                             <div class="col-lg-6 col-12">
                                 <p>
-                                <h3>PMB 2023/2024</h3>
+                                <h3 id="judul_pmb">PMB 2023/2024</h3>
                                 </p>
                                 <p>
                                 <h1 style="font-family: 'Courgette';color: firebrick">Cerdas Membangun Peradaban Utama</h1>
@@ -139,49 +139,8 @@
                                 <h4 class="fw-400"></h4>
                                 <a href="https://pmb.umuka.ac.id/" class="btn btn-outline btn-primary">Daftar Sekarang</a>
                             </div>
-                            <div class="col-lg-6 col-12 position-relative">
-                                <div class="media-list media-list-hover media-list-divided md-post mt-lg-0 mt-30">
-                                    <a class="media media-single box-shadowed bg-white pull-up mb-15" href="#">
-                                        <img class="w-80 rounded ms-0"
-                                            src="{{ URL::asset('images/front-end-img/avatar/1.jpg') }}" alt="...">
-                                        <div class="media-body fw-500">
-                                            <h5 class="overflow-hidden text-overflow-h nowrap">Basic English for IBPS SO/
-                                                IBPS PO/IBPS Clerk exams | 5 PM</h5>
-                                            <small class="text-fade">Today, 5:00 PM</small>
-                                            <p><small class="text-fade mt-10">Johen doe</small></p>
-                                        </div>
-                                    </a>
-                                    <a class="media media-single box-shadowed bg-white pull-up mb-15" href="#">
-                                        <img class="w-80 rounded ms-0"
-                                            src="{{ URL::asset('images/front-end-img/avatar/2.jpg') }}" alt="...">
-                                        <div class="media-body fw-500">
-                                            <h5 class="overflow-hidden text-overflow-h nowrap">Basic English for IBPS SO/
-                                                IBPS PO/IBPS Clerk exams | 5 PM</h5>
-                                            <small class="text-fade">Today, 5:00 PM</small>
-                                            <p><small class="text-fade mt-10">Johen doe</small></p>
-                                        </div>
-                                    </a>
-                                    <a class="media media-single box-shadowed bg-white pull-up mb-15" href="#">
-                                        <img class="w-80 rounded ms-0"
-                                            src="{{ URL::asset('images/front-end-img/avatar/3.jpg') }}" alt="...">
-                                        <div class="media-body fw-500">
-                                            <h5 class="overflow-hidden text-overflow-h nowrap">Basic English for IBPS SO/
-                                                IBPS PO/IBPS Clerk exams | 5 PM</h5>
-                                            <small class="text-fade">Today, 5:00 PM</small>
-                                            <p><small class="text-fade mt-10">Johen doe</small></p>
-                                        </div>
-                                    </a>
-                                    <a class="media media-single box-shadowed bg-white pull-up mb-0" href="#">
-                                        <img class="w-80 rounded ms-0"
-                                            src="{{ URL::asset('images/front-end-img/avatar/4.jpg') }}" alt="...">
-                                        <div class="media-body fw-500">
-                                            <h5 class="overflow-hidden text-overflow-h nowrap">Basic English for IBPS SO/
-                                                IBPS PO/IBPS Clerk exams | 5 PM</h5>
-                                            <small class="text-fade">Today, 5:00 PM</small>
-                                            <p><small class="text-fade mt-10">Johen doe</small></p>
-                                        </div>
-                                    </a>
-                                </div>
+                            <div class="col-lg-6 col-12 position-relative mt-2">
+                                <img id="gambar_pmb" class="rounded" src="" alt="gambar_pmb">
                             </div>
                         </div>
                     </div>
@@ -240,7 +199,7 @@
                     <hr class="w-100 bg-primary">
                 </div>
             </div>
-            <div class="row mt-30" id="web_pengumuman">
+            <div class="row mt-30 justify-content-center align-items-center" id="web_pengumuman">
                 {{-- @foreach ($pengumuman as $p)
                     
                 
@@ -280,131 +239,13 @@
                     </div> --}}
                 </div>
                 <div class="col-12 text-center">
-                    <a href="#" class="btn btn-primary mx-auto">View All Free Courses</a>
+                    <a href="{{ route('pengumuman.listpage') }}" class="btn btn-primary mx-auto"> Lainnya <i class="fa fa-arrow-circle-o-right"
+                        aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-50" data-aos="fade-up">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7 col-12 text-center">
-                    <h1 class="mb-15">Agenda</h1>
-                    <hr class="w-100 bg-primary">
-                </div>
-            </div>
-            <div class="row mt-30">
-                <div class="col-md-3 col-12">
-                    <div class="box pull-up">
-                        <div class="box-body">
-                            <div>
-                                <div class="d-flex align-items-center mb-30">
-                                    <div class="me-15">
-                                        <img src="../images/front-end-img/avatar/1.jpg" class="avatar avatar-lg rounded10"
-                                            alt="">
-                                    </div>
-                                    <div class="d-flex flex-column fw-500">
-                                        <a href="#" class="text-dark hover-primary mb-1 fs-16">Johen Kothari</a>
-                                        <span class="text-fade fs-12">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <p class="mb-25 min-h-120">A great aspect of this course is the student mentors. These
-                                    people are always there to help, support, and motivate the student to complete
-                                    modules...</p>
-                                <div class="d-flex align-items-center">
-                                    <a href="#">
-                                        <i class="me-15 fa fa-linkedin-square"></i>
-                                        <span>Detailed Review</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-12">
-                    <div class="box pull-up">
-                        <div class="box-body">
-                            <div>
-                                <div class="d-flex align-items-center mb-30">
-                                    <div class="me-15">
-                                        <img src="../images/front-end-img/avatar/2.jpg" class="avatar avatar-lg rounded10"
-                                            alt="">
-                                    </div>
-                                    <div class="d-flex flex-column fw-500">
-                                        <a href="#" class="text-dark hover-primary mb-1 fs-16">Johen doe</a>
-                                        <span class="text-fade fs-12">Vice President</span>
-                                    </div>
-                                </div>
-                                <p class="mb-25 min-h-120">This course actually helped me move from being a general manager
-                                    to vice president. The content was exciting. I actually implemented what I learnt
-                                    through case...</p>
-                                <div class="d-flex align-items-center">
-                                    <a href="#">
-                                        <i class="me-15 fa fa-linkedin-square"></i>
-                                        <span>Detailed Review</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-12">
-                    <div class="box pull-up">
-                        <div class="box-body">
-                            <div>
-                                <div class="d-flex align-items-center mb-30">
-                                    <div class="me-15">
-                                        <img src="../images/front-end-img/avatar/3.jpg" class="avatar avatar-lg rounded10"
-                                            alt="">
-                                    </div>
-                                    <div class="d-flex flex-column fw-500">
-                                        <a href="#" class="text-dark hover-primary mb-1 fs-16">Anshu Srivastav</a>
-                                        <span class="text-fade fs-12">Research Assistant</span>
-                                    </div>
-                                </div>
-                                <p class="mb-25 min-h-120">Group case studies really give a sense of teamwork, as it
-                                    happens in regular classroom studies. It teaches us coordination and right attitude as a
-                                    team...</p>
-                                <div class="d-flex align-items-center">
-                                    <a href="#">
-                                        <i class="me-15 fa fa-linkedin-square"></i>
-                                        <span>Detailed Review</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-12">
-                    <div class="box pull-up">
-                        <div class="box-body">
-                            <div>
-                                <div class="d-flex align-items-center mb-30">
-                                    <div class="me-15">
-                                        <img src="../images/front-end-img/avatar/4.jpg" class="avatar avatar-lg rounded10"
-                                            alt="">
-                                    </div>
-                                    <div class="d-flex flex-column fw-500">
-                                        <a href="#" class="text-dark hover-primary mb-1 fs-16">Mical Doe</a>
-                                        <span class="text-fade fs-12">Analyst</span>
-                                    </div>
-                                </div>
-                                <p class="mb-25 min-h-120">It doesn’t matter what your previous working background is, as
-                                    everything is taught from the basics.</p>
-                                <div class="d-flex align-items-center">
-                                    <a href="#">
-                                        <i class="me-15 fa fa-linkedin-square"></i>
-                                        <span>Detailed Review</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
 
 @endsection
@@ -511,13 +352,14 @@
 
                         for (i = 0; i < jml; i++) {
                             url_detail =
-                                '{{ route('detail.announ', ['title' => ':title']) }}';
+                                '{{ route('detail.announ', ['id' => ':id']) }}';
                             img = result[i].gambar;
                             titlesubtr = subStr(result[i].judul, 25);
                             judul = result[i].judul;
+                            id_pengumuman = result[i].id_pengumuman;
                             //judul = judul.replace(/ /g, "+");
 
-                            url_detail = url_detail.replace(':title', judul);
+                            url_detail = url_detail.replace(':id', id_pengumuman);
 
                             s = s + '<div class="col-lg-3 col-md-6 col-12">'+
                     '<div class="card">'+
@@ -540,6 +382,24 @@
 
             web_pengumuman();
 
+            function web_pmb() {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('pmb.data') }}",
+                    success: function(result) {
+                       
+                        
+
+                        var gambar = result.data[0].gambar;
+                        
+                        var judul = result.data[0].judul;
+                        $('#judul_pmb').text(judul);
+                        $('#gambar_pmb').attr('src', "{{ URL::asset("uploadfile_pmb") }}/"+gambar+"");
+
+                    }
+                })
+            }
+            web_pmb();
         
             
 

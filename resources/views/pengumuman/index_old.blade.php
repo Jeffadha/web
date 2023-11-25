@@ -169,15 +169,6 @@ $(document).ready(function() {
         }
     });
 
-    $(function () {
-        "use strict";
-        CKEDITOR.replace('editor2');
-        $('.textarea').wysihtml5();
-        // CKEDITOR.replace('editor2', {
-        //     extraPlugins: 'simplebox'
-        // });
-    });
-
 
     var table = $('#tbberita').DataTable({
       lengthChange: false,

@@ -12,12 +12,12 @@
         <div class="content-header">
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
-                    <h3 class="page-title">Pengumuman</h3>
+                    <h3 class="page-title">Prodi</h3>
                     <div class="d-inline-block align-items-center">
                         <nav>
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Update</li>
+                                <li class="breadcrumb-item active" aria-current="page">Create</li>
                                 {{-- <li class="breadcrumb-item" aria-current="page">Fakultas</li> --}}
                             </ol>
                         </nav>
@@ -33,19 +33,43 @@
                     <div class="box-body">
                         @csrf
                         <div class="form-group">
-                            <label>Judul Pengumuman</label>
-                            <input class="form-control" type="text" value="{{ $data->judul }}" name="judul"
-                                placeholder="Judul pengumuman">
+                            <label>Nama Prodi</label>
+                            <input class="form-control" value="{{ $data->nama_prodi }}" type="text" name="nama_prodi" placeholder="Nama Prodi">
                         </div>
-
-                        <!-- /.form-group -->
                         <div class="form-group">
-                            <label for="formFiles" class="form-label">File PDF</label>
-                            <input class="form-control" type="file" accept="pdf/*" id="formFiles" name="gambar">
+                            <label for="degree">Degree</label>
+                            <select class="form-control" name="degree" id="degree">
+                                <option value="{{ $data->degree }}">{{ $data->degree }}</option>
+                                <option value="D1">D1</option>
+                                <option value="D2">D2</option>
+                                <option value="D3">D3</option>
+                                <option value="D4">D4</option>
+                                <option value="S1">S1</option>
+                                <option value="S2">S2</option>
+                                <option value="S3">S3</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="formFile" class="form-label">File Gambar</label>
-                            <input class="form-control" type="file" accept="image/*" id="formFile" name="gambar">
+                            <input class="form-control"  type="file" accept="image/*" id="formFile" name="gambar">
+                        </div>
+                        <div class="form-group">
+                            <label>Visi</label>
+                            <textarea id="editor1" name="visi" rows="10" cols="80">
+                                {{ htmlspecialchars_decode($data->visi) }}
+                            </textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Misi</label>
+                            <textarea id="editor2" name="misi" rows="10" cols="80">
+                                {{ htmlspecialchars_decode($data->misi) }}
+                            </textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Tujuan</label>
+                            <textarea id="editor3" name="tujuan" rows="10" cols="80">
+                                {{ htmlspecialchars_decode($data->tujuan) }}
+                            </textarea>
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -64,31 +88,27 @@
 @endsection
 @section('script-master')
     <script type="text/javascript">
+                CKEDITOR.replace('editor1');
+                CKEDITOR.replace('editor2');
+                CKEDITOR.replace('editor3');
         var instance;
-
-        var id = '{{ $data->id_pengumuman }}';
-
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            });
-
-            // $('.selectkategori').val(category_id);
-            // $('.selectkategori').select2().trigger('change');
-            // $(".selectkategori").select2().val(category_id).trigger('change');
-
-
-            //$(".selectkategori").val(category_id).trigger('change.select2');
-            //$(".selectkategori option[value="+category_id+"]").attr('selected', 'selected');
+            })
 
             $('#btSave').on('click', function(event) {
                 event.preventDefault();
                 // document.querySelector("[name=content").value = instance.getData();
+                CKEDITOR.instances['editor1'].updateElement();
+                CKEDITOR.instances['editor2'].updateElement();
+                CKEDITOR.instances['editor3'].updateElement();
                 var form_data = new FormData(document.getElementById("form_add"));
+                
                 $.ajax({
-                    url: "{{ route('pengumuman.save') }}",
+                    url: "{{ route('prodi.update',['id' => $data->id_prodi]) }}",
                     method: "POST",
                     data: form_data,
                     dataType: 'json',
@@ -104,7 +124,6 @@
                             $("#btSave").prop('disabled', false);
                         } else if (data.success) {
                             showToastr('success', 'Success!', data.success);
-                            $('#form_add')[0].reset();
                             $("#btSave").prop('disabled', false);
                         }
                     }

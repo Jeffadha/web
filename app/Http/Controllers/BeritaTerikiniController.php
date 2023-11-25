@@ -26,9 +26,9 @@ class BeritaTerikiniController extends Controller
     public function update_page($id)
     {
         $idpost = $id;
-        $data = collect(DB::connection('mysql')->select('SELECT * FROM beritaterkini JOIN category ON beritaterkini.category_id = category.id WHERE id_berita =' . $idpost . ''))->first();
-
-
+        $data = collect(DB::connection('mysql')
+        ->select('SELECT * FROM beritaterkini
+    WHERE id_berita =' . $idpost . ''))->first();
         return view('beritaterkini.update', compact('data'));
     }
 
@@ -63,8 +63,8 @@ class BeritaTerikiniController extends Controller
     {
         $validation = Validator::make($request->all(), [
             'judul' => 'required',
+            'author' => 'required',
             'content' => 'required',
-            'category_id' => 'required',
             'tags' => 'required',
             'gambar' => 'required|mimes:jpeg,png|max:2048'
         ]);
@@ -74,13 +74,13 @@ class BeritaTerikiniController extends Controller
             return response()->json(['error' => $validation->errors()->all()]);
         } else {
 
-            if ($request->hasfile('gambar')) {
+            if ($request-> hasfile('gambar')) {
                 $file   =   $request->file('gambar');
                 $name = date("YmdHis") . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('uploadfile_news'), $name);
                 DB::connection('mysql')->table('beritaterkini')->insert([
                     'judul' =>  $request->judul,
-                    'category_id' =>  $request->category_id,
+                    'author' =>  $request->author,
                     'content' => htmlspecialchars($request->content),
                     'gambar' => $name,
                     'tags' =>  $request->tags,
@@ -95,63 +95,64 @@ class BeritaTerikiniController extends Controller
     }
 
 
-    public function update(Request $request)
-    {
-        $validation = Validator::make($request->all(), [
-            'judul' => 'required',
-            'content' => 'required',
-            'category_id' => 'required',
-            'tags' => 'required',
-            'id_berita' => 'required'
-        ]);
+    public function update(Request $request, $id)
+{
+    $validation = Validator::make($request->all(), [
+        'author' => 'required',
+        'judul' => 'required',
+        'content' => 'required',
+        'tags' => 'required',
+        'gambar' => 'sometimes|mimes:jpeg,png|max:2048',
+    ]);
 
-
-        if ($validation->fails()) {
-            return response()->json(['error' => $validation->errors()->all()]);
-        } else {
-
-
-            $data = collect(DB::connection('mysql')->select('SELECT gambar FROM beritaterkini JOIN category ON beritaterkini.category_id = category.id WHERE id_berita =' . $request->id_berita . ''))->first();
-
-            $path = public_path() . '/uploadfile_news/' . $data->gambar;
-
-            if ($request->hasfile('gambar')) {
-
+    if ($validation->fails()) {
+        return response()->json(['error' => $validation->errors()->all()]);
+    } else {
+            $data = collect(DB::connection('mysql')->select('SELECT gambar FROM beritaterkini WHERE id_berita =' . $id));
+            $data = $data[0]->gambar;
+            $path = public_path('uploadfile_news/' . $data);
+                        
+            if ($request->hasFile('gambar')) {
+                // If file exists, delete the old file
                 if (File::exists($path)) {
                     File::delete($path);
                 }
-                $file   =   $request->file('gambar');
-                $name = date("YmdHis") . '.' . $file->getClientOriginalExtension();
+                
+                // Upload the new file
+                $file = $request->file('gambar');
+                $name = date('YmdHis') . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('uploadfile_news'), $name);
                 DB::connection('mysql')->table('beritaterkini')
-                    ->where('id_berita', $request->id_berita)
-                    ->update([
-                        'judul' =>  $request->judul,
-                        'category_id' =>  $request->category_id,
-                        'content' => htmlspecialchars($request->content),
-                        'gambar' => $name,
-                        'tags' =>  $request->tags,
-                        'slug' =>  Str::slug($request->judul),
-                        'user_id' => Session::get('id_user'),
-                        'tanggal' => date("Y-m-d")
-                    ]);
+                ->where('id_berita', $id)
+                ->update([
+                'author' => $request->author,
+                'judul' => $request->judul,
+                'content' => htmlspecialchars($request->content),
+                'gambar' => $name,
+                'tags' => $request->tags,
+                'slug' => Str::slug($request->judul),
+                'user_id' => Session::get('id_user'),
+                'tanggal' => date('Y-m-d'),
+                ]);
             } else {
-                DB::connection('mysql')->table('beritaterkini')
-                    ->where('id_berita', $request->id_berita)
-                    ->update([
-                        'judul' =>  $request->judul,
-                        'category_id' =>  $request->category_id,
-                        'content' => htmlspecialchars($request->content),
-                        'tags' =>  $request->tags,
-                        'slug' =>  Str::slug($request->judul),
-                        'user_id' => Session::get('id_user'),
-                        'tanggal' => date("Y-m-d")
-                    ]);
-            }
-
-            return response()->json(['success' => 'Artikel berhasil diubah !']);
+            DB::connection('mysql')->table('beritaterkini')
+            ->where('id_berita', $id)
+            ->update([
+                'author' => $request->author,
+                'judul' => $request->judul,
+                'content' => htmlspecialchars($request->content),
+                'tags' => $request->tags,
+                'slug' => Str::slug($request->judul),
+                'user_id' => Session::get('id_user'),
+                'tanggal' => date('Y-m-d'),
+            ]);
         }
-    }
+            
+    return response()->json(['success' => 'Artikel berhasil diubah !']);
+}
+}
+
+
 
     public function select_tags(Request $request)
     {
@@ -185,9 +186,17 @@ class BeritaTerikiniController extends Controller
         return response()->json(['data' => $select_categoryArray]);
     }
 
-    public function destroy(Request $request)
+    public function delete($id)
     {
-        $request->delete();
-        return response()->json(['success' => 'Artikel berhasil dihapus !']);
+        $data = collect(DB::connection('mysql')->select('SELECT gambar FROM beritaterkini WHERE id_berita =' . $id));
+        $data = $data[0]->gambar;
+        $path = public_path('uploadfile_news/' . $data);
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+
+        DB::connection('mysql')->table('beritaterkini')->where('id_berita', $id)->delete();
+        // return response()->json(['success' => 'berita berhasil dihapus !'])->header('Location', 'http://localhost:8000/admin/berita');
+        return redirect('/berita-terkini')->with('success', 'berita Berhasil Dihapus');
     }
 }

@@ -8,7 +8,209 @@
 
 @section('content')
 
-	<!---page Title --->
+<section class="bg-img pt-200 pb-200" data-overlay="1"
+        style="background-image: url({{ URL::asset('/uploadfile_news/' . $post->gambar) }}); background-position: inherit center;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center">
+                        {{-- <h2 class="page-title text-white">{{ $post->judul }}</h2> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Page content -->
+    <section class="py-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="box box-transparent no-shadow">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <!-- Nav tabs -->
+                            <div class="vtabs customvtab">
+                                <ul class="nav nav-tabs tabs-vertical" role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#tabsatu"
+                                            role="tab" aria-expanded="true"><span class="hidden-sm-up"><i
+                                                    class="ion-home"></i></span> <span class="hidden-xs-down">{{ $post->created_at }}</span>
+                                        </a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#tabdua"
+                                            role="tab" aria-expanded="false"><span class="hidden-sm-up"><i
+                                                    class="ion-person"></i></span> <span class="hidden-xs-down">Visi, Misi
+                                                dan Tujuan</span></a> </li>
+
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tabsatu" role="tabpanel" aria-expanded="true">
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-7 col-12 text-center">
+                                                <h1 class="mb-15">{{ $post->judul }}</h1>
+                                                <hr class="w-100 bg-primary">
+                                            </div>
+                                        </div>
+                                        <div class="p-0">
+                                            <p style="text-align: justify;">{!! html_entity_decode($post->content) !!} </p>
+											<p><b>Penulis : </b> {{ $post->author }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tabdua" role="tabpanel" aria-expanded="false">
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-7 col-12 text-center">
+                                                <h1 class="mb-15">Visi</h1>
+                                                <hr class="w-100 bg-primary">
+                                            </div>
+                                        </div>
+                                        <div class="p-15">
+                                            <p style="text-align: justify;">
+                                                Menjadi perguruan tinggi yang unggul dan terkemuka sebagai kekuatan
+                                                penggerak peradaban islami yang berkemajuan.
+                                            </p>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-7 col-12 text-center">
+                                                <h1 class="mb-15">Misi</h1>
+                                                <hr class="w-100 bg-primary">
+                                            </div>
+                                        </div>
+                                        <div class="p-15">
+                                            <p style="text-align: justify;">
+                                            <ol>
+                                                <li>Menyelenggarakan pendidikan, dalam bidang ilmu pengetahuan, teknologi,
+                                                    dan seni sebagai bagian pengabdian kepada Allah Swt. secara integral
+                                                    yang
+                                                    mendorong terwujudnya masyarakat yang berkemajuan dan berkeadaban.</li>
+                                                <li>Menyelenggarakan penelitian untuk mendorong pengembangan ilmu
+                                                    pengetahuan, teknologi, dan seni sebagai bagian pengabdian kepada Allah
+                                                    Swt.
+                                                    secara integral yang mendorong terwujudnya masyarakat yang berkemajuan
+                                                    dan
+                                                    berkeadaban.</li>
+                                                <li>Menyelenggarakan pengabdian kepada masyarakat untuk menerapkan ilmu
+                                                    pengetahuan, teknologi, dan seni sebagai bagian pengabdian kepada Allah
+                                                    Swt.
+                                                    secara integral yang mendorong terwujudnya masyarakat yang berkemajuan
+                                                    dan
+                                                    berkeadaban.</li>
+                                                <li>Menumbuhkembangkan sumber daya insani yang berjiwa entrepreneur
+                                                    berlandaskan nilai-nilai Keislaman, Kemuhammadiyahan, dan Keindonesiaan,
+                                                    dalam rangka mewujudkan masyarakat yang sejahtera lahir dan batin,
+                                                    disiplin,
+                                                    berkemajuan dan berkeadaban.</li>
+                                                <li>Mengembangkan tata kelola kelembagaan yang unggul dan good governance
+                                                    university.</li>
+                                                <li>Mengembangkan jejaring kerja sama dan kemitraan di tingkat lokal,
+                                                    nasional, dan internasional.</li>
+                                            </ol>
+
+                                            </p>
+                                        </div>
+
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-7 col-12 text-center">
+                                                <h1 class="mb-15">Tujuan</h1>
+                                                <hr class="w-100 bg-primary">
+                                            </div>
+                                        </div>
+                                        <div class="p-15">
+                                            <p style="text-align: justify;">
+                                            <ol>
+                                                <li>Menghasilkan lulusan yang kompeten di bidangnya dan mempunyai daya
+                                                    saing tinggi di bidang sains dan teknologi dalam pengembangan dan
+                                                    kemaslahatan umat.</li>
+                                                <li>Menghasilkan pemikiran dan temuan penelitian yang inovatif berskala
+                                                    nasional dan internasional.</li>
+                                                <li>Menghasilkan karya-karya pengabdian masyarakat yang dapat
+                                                    meningkatkan kesejahteraan masyarakat yang berkemajuan.</li>
+                                                <li>Mewujudkan universitas yang memiliki daya saing tinggi dalam bidang
+                                                    pendidikan, teknologi, dan seni yang berwawasan keislaman dan
+                                                    keindonesiaan.</li>
+                                                <li>Mewujudkan tata kelola kelembagaan yang unggul dan good governance
+                                                    university.</li>
+                                                <li>Membangun jejaring kerja sama dan kemitraan di tingkat lokal, nasional,
+                                                    dan internasional.</li>
+
+                                            </ol>
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {{-- <div class="tab-pane" id="tabtiga" role="tabpanel" aria-expanded="false">
+                                        <div class="box">
+                                            <div class="box-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Program Studi</th>
+                                                                <th>Akreditasi</th>
+                                                                <th>No SK.</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>S1 Teknik Komputer</td>
+                                                                <td>Baik</td>
+                                                                <td>10558/SK/BAN-PT/Ak.P/S/XII/2022</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>S1 Informatika</td>
+                                                                <td>Baik</td>
+                                                                <td>10488/SK/BAN-PT/Ak.P/S/XII/2022</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>S1 Bisnis Digital</td>
+                                                                <td>Baik</td>
+                                                                <td>10480/SK/BAN-PT/Ak.P/S/XII/2022</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>S1 Ilmu Komunikasi</td>
+                                                                <td>Baik</td>
+                                                                <td>10486/SK/BAN-PT/Ak.P/S/XII/2022</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>S1 Akuntansi</td>
+                                                                <td>Baik</td>
+                                                                <td>4615/SK/BAN-PT/Ak-PNB/D3/VII/2022</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>S1 Fisioterapi</td>
+                                                                <td>Baik</td>
+                                                                <td>00 59/LAM-PTKes/Akr .PB / Sar /IV /2O23</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>D3 Perhotelan</td>
+                                                                <td>Baik</td>
+                                                                <td>762/SK/BAN-PT/Ak.PEPS/D3/III/2023</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>D3 Produksi Ternak</td>
+                                                                <td>Baik Sekali</td>
+                                                                <td>4615/SK/BAN-PT/Ak-PNB/D3/VII/2022</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div> --}}
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+        </div>
+    </section>
+
+
+	{{-- <!---page Title --->
 	<section class="bg-img pt-150 pb-20" data-overlay="7" style="background-image: url(../images/front-end-img/background/bg-8.jpg);">
 		<div class="container">
 			<div class="row">
@@ -26,8 +228,8 @@
 	</section>
 	<!--Page content -->
 	
-	<section class="py-50">
-			<div class="container">
+	<section class="py-50"> --}}
+			{{-- <div class="container">
 				<div class="row">
 					<div class="col-xl-8 col-md-7 col-12">
 						<div class="box">
@@ -60,7 +262,7 @@
 							<div class="box-body">
 							<h4 class="box-title mb-0 fw-500">Description</h4>	
 							<hr>
-							<p class="fs-16 mb-30">{{ $post->content }}</p>	
+							<p class="fs-16 mb-30">{!! html_entity_decode($post->content) !!}</p>	
 								
 							<div class="row">
 								<div class="col-md-12 col-lg-6">
@@ -492,7 +694,7 @@
 					</div>				
 				</div>
 			</div>
-		</section>
+		</section> --}}
 @endsection
 @section('page-script')
 

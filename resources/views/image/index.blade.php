@@ -34,7 +34,7 @@
                                 class="fa fa-plus"></i> Tambah</a></p>
 
                     <div class="table-responsive">
-                        <table id="tbberita" class="table table-sm table-hover table-striped" width="100%">
+                        <table id="tbimage" class="table table-sm table-hover table-striped" width="100%">
                             <thead class="bg-dark">
                                 <tr>
                                     <th>No</th>
@@ -97,14 +97,14 @@
                 }
             });
 
-            $(function() {
-                "use strict";
-                CKEDITOR.replace('editor2');
-                $('.textarea').wysihtml5();
-                // CKEDITOR.replace('editor2', {
-                //     extraPlugins: 'simplebox'
-                // });
-            });
+            // $(function() {
+            //     "use strict";
+            //     CKEDITOR.replace('editor2');
+            //     $('.textarea').wysihtml5();
+            //     // CKEDITOR.replace('editor2', {
+            //     //     extraPlugins: 'simplebox'
+            //     // });
+            // });
 
 
             var table = $('#tbimage').DataTable({
@@ -154,7 +154,7 @@
                 console.log(contentArt);
                 // CKEDITOR.instances.editor2.insertHtml( '<p>This is a new paragraph.</p>' );
 
-                var editor = CKEDITOR.instances['editor2'];
+                // var editor = CKEDITOR.instances['editor2'];
 
                 // var html = $(editor.editable.$);
                 // $('#editor2',html).html(data['content']);
@@ -162,11 +162,11 @@
                 // editor.setData(data['content']);
                 // editor.getData();
 
-                editor.setData(contentArt, {
-                    callback: function() {
-                        this.checkDirty(); // true
-                    }
-                });
+                // editor.setData(contentArt, {
+                //     callback: function() {
+                //         this.checkDirty(); // true
+                //     }
+                // });
 
                 //editor.insertHtml(contentArt);
                 // var teshtml = $(contentArt).html(contentArt);
@@ -221,7 +221,7 @@
             $('#form_add').on('submit', function(event) {
                 event.preventDefault();
                 // document.querySelector("[name=content").value = instance.getData();
-                CKEDITOR.instances['editor1'].updateElement();
+                // CKEDITOR.instances['editor1'].updateElement();
                 var form_data = new FormData(this);
                 $.ajax({
                     url: "{{ route('beritaterkini.save') }}",

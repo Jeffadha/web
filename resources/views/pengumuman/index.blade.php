@@ -41,7 +41,6 @@
                                     <th>Action</th>
                                     <th>Title</th>
                                     <th>Thumbnail</th>
-                                    <th>Author</th>
                                     <th>Created at</th>
                                 </tr>
                             </thead>
@@ -66,40 +65,13 @@
                                     <label>Judul pengumuman</label>
                                     <input class="form-control" type="text" name="judul" placeholder="Judul pengumuman">
                                 </div>
-
-                                <!-- /.form-group -->
                                 <div class="form-group">
-                                    <label>Kategori</label>
-                                    <select class="form-control selectkategori" style="width: 100%;" name="select_kategori"
-                                        id="select_kategori"></select>
+                                    <label for="formFiles" class="form-label">File PDF</label>
+                                    <input class="form-control" type="file" accept="pdf/*" id="formFiles" name="gambar">
                                 </div>
-                                <div class="form-group">
-                                    <label>Isi pengumuman</label>
-                                    <textarea id="editor1" name="content" rows="10" cols="80">
-                        </textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Tags</label>
-                                    <select class="form-control select2" style="width: 100%;" multiple="multiple"
-                                        data-placeholder="Pilih Tags" name="select_tags" id="select_tags"></select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Minimal</label>
-                                    <select class="form-control select2" style="width: 100%;">
-                                        <option selected="selected">Alabama</option>
-                                        <option>Alaska</option>
-                                        <option>California</option>
-                                        <option>Delaware</option>
-                                        <option>Tennessee</option>
-                                        <option>Texas</option>
-                                        <option>Washington</option>
-                                    </select>
-                                </div>
-
                                 <div class="form-group">
                                     <label for="formFile" class="form-label">File Gambar</label>
-                                    <input class="form-control" type="file" accept="image/*" id="formFile"
-                                        name="gambar">
+                                    <input class="form-control" type="file" accept="image/*" id="formFile" name="gambar">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -133,15 +105,14 @@
                                         placeholder="Judul Pengumuman">
                                 </div>
                                 <div class="form-group">
-                                    <label>Isi Pengumuman</label>
-                                    <textarea id="editor2" name="content" rows="10" cols="80">
-                    </textarea>
+                                    <label for="formFiles" class="form-label">File PDF</label>
+                                    <input class="form-control" type="file" accept="pdf/*" id="formFiles" name="gambar">
                                 </div>
                                 <div class="form-group">
-                                    <label for="eformFile" class="form-label">File Gambar</label>
-                                    <input class="form-control" type="file" accept="image/*" id="eformFile"
-                                        name="egambar">
+                                    <label for="formFile" class="form-label">File Gambar</label>
+                                    <input class="form-control" type="file" accept="image/*" id="formFile" name="gambar">
                                 </div>
+                            </div>
                                 <div class="form-group" id="show_file">
 
                                 </div>
@@ -171,15 +142,6 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            });
-
-            $(function() {
-                "use strict";
-                CKEDITOR.replace('editor2');
-                $('.textarea').wysihtml5();
-                // CKEDITOR.replace('editor2', {
-                //     extraPlugins: 'simplebox'
-                // });
             });
 
 
@@ -220,11 +182,6 @@
                         className: 'text-center'
                     },
                     {
-                        data: 'fullname',
-                        name: 'fullname',
-                        width: '20%'
-                    },
-                    {
                         data: 'created_at',
                         name: 'created_at',
                         width: '10%'
@@ -238,21 +195,13 @@
                 $tr = $(this).closest('tr');
                 var data = table.row($tr).data();
                 console.log(contentArt);
-                // CKEDITOR.instances.editor2.insertHtml( '<p>This is a new paragraph.</p>' );
-
-                var editor = CKEDITOR.instances['editor2'];
+                
 
                 // var html = $(editor.editable.$);
                 // $('#editor2',html).html(data['content']);
 
                 // editor.setData(data['content']);
                 // editor.getData();
-
-                editor.setData(contentArt, {
-                    callback: function() {
-                        this.checkDirty(); // true
-                    }
-                });
 
                 //editor.insertHtml(contentArt);
                 // var teshtml = $(contentArt).html(contentArt);
@@ -305,42 +254,11 @@
 
 
 
-            //select category
-            $('.selectkategori').select2({
-                allowClear: true,
-                placeholder: 'Select Category',
-                ajax: {
-                    dataType: 'json',
-                    url: "{{ route('select.category') }}",
-                    //delay: 100,
-                    data: function(params) {
-                        return {
-                            search: params.term
-                        }
-                    },
-                    processResults: function(data) {
-                        var data_array = [];
-                        data.data.forEach(function(value, key) {
-                            data_array.push({
-                                id: value.id,
-                                text: value.text
-                            })
-                        });
-
-                        return {
-                            results: data_array
-                        }
-                    }
-                }
-            }).on('selectkategori:select', function(evt) {
-                $(".selectkategori option:selected").val();
-            });
 
 
             $('#form_add').on('submit', function(event) {
                 event.preventDefault();
                 // document.querySelector("[name=content").value = instance.getData();
-                CKEDITOR.instances['editor1'].updateElement();
                 var form_data = new FormData(this);
                 $.ajax({
                     url: "{{ route('pengumuman.save') }}",

@@ -40,8 +40,9 @@
                                     <th>No</th>
                                     <th>Action</th>
                                     <th>Title</th>
-                                    <th>Thumbnail</th>
                                     <th>Author</th>
+                                    <th>Thumbnail</th>
+                                    <th>Admin</th>
                                     <th>Created at</th>
                                 </tr>
                             </thead>
@@ -211,6 +212,11 @@
                     {
                         data: 'judul',
                         name: 'judul',
+                        width: '40%'
+                    },
+                    {
+                        data: 'author',
+                        name: 'author',
                         width: '40%'
                     },
                     {

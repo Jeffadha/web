@@ -34,7 +34,7 @@ class PengumumanController extends Controller
 
     public function data_pengumuman(Request $request)
     {
-        $data_pengumuman = DB::connection('mysql')->select('SELECT pengumuman.*, users.fullname FROM pengumuman JOIN users ON pengumuman.user_id = users.id');
+        $data_pengumuman = DB::connection('mysql')->select('SELECT * FROM pengumuman');
 
         return Datatables::of($data_pengumuman)
             ->addIndexColumn()
@@ -46,7 +46,7 @@ class PengumumanController extends Controller
             })
             ->addColumn('image', function ($data) {
                 if (!empty($data->gambar)) {
-                    $url = URL::asset('/uploadfile_announchment/' . $data->gambar);
+                    $url = URL::asset('/uploadfile_announcement/' . $data->gambar);
                 } else {
                     $url = URL::asset('images/no-image.png');
                 }
@@ -64,7 +64,7 @@ class PengumumanController extends Controller
         $validation = Validator::make($request->all(), [
             'judul' => 'required',
             'content' => 'required|mimes:pdf',
-            'gambar' => 'required|mimes:jpeg,png|max:2048'
+            'gambar' => 'required|mimes:jpeg,png'
         ]);
 
 
@@ -75,18 +75,15 @@ class PengumumanController extends Controller
             if ($request->hasfile('gambar')) {
                 $file   =   $request->file('gambar');
                 $name = date("YmdHis") . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('uploadfile_announchment'), $name);
+                $file->move(public_path('uploadfile_announcement'), $name);
                 //pdf
-                $files   =   $request->file('gambar');
+                $files   =   $request->file('content');
                 $names = date("YmdHis") . '.' . $files->getClientOriginalExtension();
-                $files->move(public_path('uploadfile_announchment_pdf'), $names);
+                $files->move(public_path('uploadfile_announcement_pdf'), $names);
                 DB::connection('mysql')->table('pengumuman')->insert([
                     'judul' =>  $request->judul,
                     'content' => $names,
                     'gambar' => $name,
-                    'tags' =>  $request->tags,
-                    'slug' =>  Str::slug($request->judul),
-                    'user_id' => Session::get('id_user'),
                     'tanggal' => date("Y-m-d")
                 ]);
 
@@ -102,7 +99,6 @@ class PengumumanController extends Controller
             'judul' => 'required',
             'content' => 'required',
             'category_id' => 'required',
-            'tags' => 'required',
             'id_pengumuman' => 'required'
         ]);
 
@@ -114,7 +110,8 @@ class PengumumanController extends Controller
 
             $data = collect(DB::connection('mysql')->select('SELECT gambar FROM pengumuman JOIN category ON pengumuman.category_id = category.id WHERE id_pengumuman =' . $request->id_pengumuman . ''))->first();
 
-            $path = public_path() . '/uploadfile_announchment/' . $data->gambar;
+            $path = public_path() . '/uploadfile_announcement/' . $data->gambar;
+            $paths = public_path() . '/uploadfile_announcement_pdf/' . $data->content;
 
             if ($request->hasfile('gambar')) {
 
@@ -124,22 +121,29 @@ class PengumumanController extends Controller
 
                 $file   =   $request->file('gambar');
                 $name = date("YmdHis") . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('uploadfile_announchment'), $name);
+                $file->move(public_path('uploadfile_announcement'), $name);
                 
+                $files   =   $request->file('content');
+                $names = date("YmdHis") . '.' . $files->getClientOriginalExtension();
+                $files->move(public_path('uploadfile_announcement_pdf'), $names);
+
                 DB::connection('mysql')->table('pengumuman')
                     ->where('id_pengumuman', $request->id_pengumuman)
                     ->update([
                         'judul' =>  $request->judul,
-                        'content' => htmlspecialchars($request->content),
+                        'content' => $names,
                         'gambar' => $name,
                         'tanggal' => date("Y-m-d")
                     ]);
             } else {
+                $files   =   $request->file('content');
+                $names = date("YmdHis") . '.' . $files->getClientOriginalExtension();
+                $files->move(public_path('uploadfile_announcement_pdf'), $names);
                 DB::connection('mysql')->table('pengumuman')
                     ->where('id_pengumuman', $request->id_pengumuman)
                     ->update([
                         'judul' =>  $request->judul,
-                        'content' => htmlspecialchars($request->content),
+                        'content' => $names,
                         'tanggal' => date("Y-m-d")
                     ]);
             }
@@ -160,23 +164,17 @@ class PengumumanController extends Controller
     //     return $select_category;
     // }
 
-    public function select_category(Request $request)
+    public function delete($id)
     {
-        $select_category = DB::select("SELECT * FROM category WHERE name like '%{$request->search}%'");
-
-        if (!empty($select_category[0]->id)) {
-            foreach ($select_category as $namaselect_category) {
-                $select_categoryArray[] = array(
-                    "id" => $namaselect_category->id,
-                    "text" => $namaselect_category->name
-                );
-            }
-        } else {
-            $select_categoryArray[] = array(
-                "id" => '',
-                "text" => '',
-            );
+        $data = collect(DB::connection('mysql')->select('SELECT gambar FROM pengumuman WHERE id_pengumuman =' . $id));
+        $data = $data[0]->gambar;
+        $path = public_path('uploadfile_news/' . $data);
+        if (File::exists($path)) {
+            File::delete($path);
         }
-        return response()->json(['data' => $select_categoryArray]);
+
+        DB::connection('mysql')->table('pengumuman')->where('id_pengumuman', $id)->delete();
+        // return response()->json(['success' => 'berita berhasil dihapus !'])->header('Location', 'http://localhost:8000/admin/berita');
+        return redirect('/pengumuman')->with('success', 'pengumuman Berhasil Dihapus');
     }
 }

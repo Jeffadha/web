@@ -105,10 +105,9 @@
                 <li class="dropdown">
                     <b><a href="#">Belajar di UMUKA</a></b>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Beasiswa</a></li>
-                        <li><a href="#">Sarjana</a></li>
-                        <li><a href="#">Diploma</a></li>
-                        <li><a href="#">Kampus Merdeka</a></li>
+                        <li class="{{ Route::is('prodi_show') ? 'active' : '' }}"><a href="{{ route('prodi_show') }}">Prodi</a></li>
+                        <li class="{{ Route::is('sarjana_show') ? 'active' : '' }}"><a href="{{ route('sarjana_show') }}">Sarjana</a></li>
+                        <li class="{{ Route::is('diploma_show') ? 'active' : '' }}"><a href="{{ route('diploma_show') }}">Diploma</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

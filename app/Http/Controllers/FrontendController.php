@@ -35,15 +35,19 @@ class FrontendController extends Controller
     {
         return view('frontend.post_listpage');
     }
+    public function announcement_list()
+    {
+        return view('frontend.announcement_listpage');
+    }
 
 
     public function web_beritaterkini(Request $request)
     {
         $web_beritaterkini = DB::connection('mysql')
             ->select('SELECT beritaterkini.*, users.fullname,departement_roles.nama_departemen, departement_roles.url_departemen FROM beritaterkini 
-        JOIN users ON beritaterkini.user_id = users.id 
-        JOIN departement_roles ON departement_roles.id_departemen = beritaterkini.roles_departemen_id 
-        ORDER BY id_berita DESC LIMIT 4');
+            JOIN users ON beritaterkini.user_id = users.id 
+            JOIN departement_roles ON departement_roles.id_departemen = beritaterkini.roles_departemen_id 
+            ORDER BY id_berita DESC LIMIT 4;');
         return $web_beritaterkini;
     }
 
@@ -51,10 +55,17 @@ class FrontendController extends Controller
     {
         $list_beritaterkini = DB::connection('mysql')
             ->select('SELECT beritaterkini.*, users.fullname,departement_roles.nama_departemen, departement_roles.url_departemen FROM beritaterkini 
-        JOIN users ON beritaterkini.user_id = users.id 
-        JOIN departement_roles ON departement_roles.id_departemen = beritaterkini.roles_departemen_id 
-        ORDER BY id_berita DESC');
+            JOIN users ON beritaterkini.user_id = users.id 
+            JOIN departement_roles ON departement_roles.id_departemen = beritaterkini.roles_departemen_id 
+            ORDER BY id_berita DESC');
         return $list_beritaterkini;
+    }
+    public function list_pengumuman(Request $request)
+    {
+        $list_pengumuman = DB::connection('mysql')
+            ->select('SELECT * FROM pengumuman
+        ORDER BY id_pengumuman DESC');
+        return $list_pengumuman;
     }
 
     // public function detail_post_page()
@@ -78,7 +89,6 @@ class FrontendController extends Controller
         JOIN users ON beritaterkini.user_id = users.id 
         JOIN departement_roles ON departement_roles.id_departemen = beritaterkini.roles_departemen_id 
         WHERE id_berita =' . $request->id . ''))->first();
-        // dd($detail_post);
         return $detail_post;
     }
 
@@ -91,15 +101,13 @@ class FrontendController extends Controller
         return $web_pengumuman;
     }
 
-    public function detail_announcement_page($urlext, $id, $title)
+    public function detail_announcement_page($id)
     {
-        
-        $id_pengumuman = $id;
-        $pengumuman = DB::table('pengumuman')->find($id);
 
-        // dd($id_pengumuman);
+        // $judul = $title;
+        $pengumuman = DB::table('pengumuman')->where('id_pengumuman', $id)->first();
 
-        return view('frontend.announcement_detailpage', compact(['pengumuman'],'id_pengumuman'));
+        return view('frontend.announcement_detailpage', compact(['pengumuman'],'id'));
     }
 
     // public function detail_announcement(Request $request)
@@ -117,6 +125,36 @@ class FrontendController extends Controller
             ->select('SELECT * FROM gallery
         ORDER BY id_image DESC LIMIT 12');
         return $data_gambar;
+    }
+    public function prodi_show()
+    {
+        $prodi = DB::connection('mysql')
+            ->select('SELECT * FROM prodi');
+
+        return view('frontend.prodi_page', compact('prodi'));
+    }
+
+    public function sarjana_show()
+    {
+        $sarjana = DB::connection('mysql')
+            ->select('SELECT * FROM prodi WHERE degree =  "S1" OR degree = "S2" OR degree = "S"');
+
+        return view('frontend.sarjana_page', compact('sarjana'));
+    }
+
+    public function diploma_show()
+    {
+        $diploma = DB::connection('mysql')
+            ->select('SELECT * FROM prodi where degree =  "D1" OR  degree =  "D2" OR degree="D3" ');
+
+        return view('frontend.diploma_page', compact('diploma'));
+    }
+
+    public function detail_prodi_show($id)
+    {
+        $prodi = DB::connection('mysql')
+            ->select('SELECT * FROM prodi WHERE id_prodi = ' . $id . '');
+        return view('frontend.detail_prodi_page', compact('prodi'));
     }
 
 }
